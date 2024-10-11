@@ -1,0 +1,18 @@
+package dto;
+
+import java.io.Serializable;
+
+public class Book implements Serializable {
+	
+	private String bookId;			//도서 ID
+	private String name;			//도서명
+	private int unitPrice;			//가격
+	private String author;			//저자
+	private String description;		//설명
+	private String publisher;		//출판사
+	private String Category;		//분류
+	private long unitsInStock;		//재고개수
+	private String releaseDate;		//출판일(월/년)
+	private String condition;		//신제품 or 구제품 or 리퍼브제품
+	
+}

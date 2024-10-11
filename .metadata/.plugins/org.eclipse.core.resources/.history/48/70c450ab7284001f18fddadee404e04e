@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+</head>
+<body>
+	URL 요청 발생 테스트
+	
+	<p>
+		<!-- Step1 -->
+		<!-- http://localhost:8080/jsp_example/first 상대경로  -->
+		<a href="first">첫번째 요청</a>
+	</p>
+</body>
+</html>
