@@ -6,8 +6,12 @@ import dto.Book;
 
 public class BookRepository {
 	
-	private ArrayList<Book> listOfBooks = new ArrayList<Book>();
-	//Book 객체를 담는 배열객체
+	private static ArrayList<Book> listOfBooks = new ArrayList<Book>();
+	//Book 객체를 담는 배열객체 - 저장소 변수
+	
+	private static BookRepository repository = new BookRepository();
+	//생성자 호출을 미리 해둠
+	//private - 외부에서 접근을 막기 때문에, 함수도 같이 생성되나 접근할 수 없음
 	
 	//생성자를 만들면 ArrayList에 값이 담기게 됨
 	public BookRepository() {
@@ -43,9 +47,14 @@ public class BookRepository {
 		
 	}
 
-	public ArrayList<Book> getAllBooks() {
+	public static ArrayList<Book> getAllBooks() {
 		return listOfBooks;
 		//해당 메서드는 도서 목록을 반환
 	}
+
+	public static BookRepository getRepository() {
+		return repository;
+	}
+
 
 }

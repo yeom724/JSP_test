@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html> 
  <header class="pb-3 mb-4 border-bottom">
       <a href="./welcome.jsp" class="d-flex align-items-center text-dark text-decoration-none">
       <svg  width="32" height="32" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
@@ -5,5 +8,10 @@
   			<path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
 		</svg>   
         <span class="fs-4">Home</span>
-      </a>    
+      </a>
+      <a href="products">전체 상품 보기</a>
+      <!-- 
+      		경로 지정할 때 앞에 /를 붙이게 되면 절대경로 표시로 바뀌게 된다.
+      		지금은 상대경로 표시 중이다.
+       -->
     </header>    

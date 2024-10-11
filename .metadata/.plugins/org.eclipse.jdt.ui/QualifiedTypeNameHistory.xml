@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="dto.Book"/>
+    <fullyQualifiedTypeName name="dao.BookRepository"/>
     <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServlet"/>
+    <fullyQualifiedTypeName name="jakarta.security.auth.message.callback.PrivateKeyCallback.Request"/>
     <fullyQualifiedTypeName name="jakarta.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="jakarta.servlet.annotation.WebServlet"/>
-    <fullyQualifiedTypeName name="java.io.Serializable"/>
-    <fullyQualifiedTypeName name="dao.BookRepository"/>
-    <fullyQualifiedTypeName name="dto.Book"/>
 </qualifiedTypeNameHistroy>

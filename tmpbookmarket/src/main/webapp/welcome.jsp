@@ -21,6 +21,7 @@
         		
         		<span class = "fs-4">　Home</span>
 			</a>
+			<a href="products">전체 상품 보기</a>
 		</header>
 		
 		<%!
