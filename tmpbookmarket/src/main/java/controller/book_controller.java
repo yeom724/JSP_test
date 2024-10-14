@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import dto.Book;
+import dao.BookRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,24 +12,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/a")
-public class homecont extends HttpServlet {
+@WebServlet("/book")
+public class book_controller extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//전처리
-		//모델이동 (배우지는 않아서 여기까지 일단 생략)
+		System.out.println("/book 매핑");
 		
-		//페이지 이동 (현재 해볼 단계)
-		RequestDispatcher ds = req.getRequestDispatcher("index.html");
-		ds.forward(req, resp);
+		BookRepository bookDA0 = BookRepository.getRepository();
+		req.setAttribute("bookDAO", bookDA0);
 		
+		RequestDispatcher rd = req.getRequestDispatcher("book.jsp");
+		rd.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 	}
-	
+
 }

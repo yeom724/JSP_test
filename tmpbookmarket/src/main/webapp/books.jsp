@@ -27,10 +27,8 @@
 		</div>
 		
 		<div class="row align-items-md-stretch text-center">
-	
 			<%
 				for(int i=0; i<listOfBooks.size(); i++){
-					
 					Book book = listOfBooks.get(i);
 					//아직 for문 닫지 않음	
 			%>
@@ -40,8 +38,9 @@
 					<h5><b><%= book.getName() %></b></h5>
 					<p><%= book.getAuthor() %></p>
 					<p><%= book.getPublisher() %> | <%= book.getReleaseDate() %></p>
-					<p><%= book.getDescription().substring(0,60) %>...</p>
+					<p><%= book.getDescription() %>...</p>
 					<p><%= book.getUnitPrice() %>원</p>
+					<p><a href="./book?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button">상세 정보 &raquo;</a></p>
 				</div>
 			</div>
 			

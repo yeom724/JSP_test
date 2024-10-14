@@ -12,6 +12,8 @@ public class BookRepository {
 	//생성자를 만들면 ArrayList에 값이 담기게 됨
 	public BookRepository() {
 		
+		
+		
 		Book book1 = new Book("ISBN1234", "C# 프로그래밍", 27000);
 		book1.setAuthor("우재남");
 		book1.setDescription("C#을 처음 접하는 독자를 대상으로 1:1 수업처럼 자세히 설명한 책이다. 꼭 알아야 할 핵심 개념은 기본 예제로 최대한 쉽게 설명했으며, 중요한 내용은 응용 예제, 퀴즈, 셀프 스터디, 예제 모음으로 한번 더 복습할 수 있다.");
@@ -46,6 +48,21 @@ public class BookRepository {
 	public ArrayList<Book> getAllBooks() {
 		return listOfBooks;
 		//해당 메서드는 도서 목록을 반환
+	}
+	
+	public Book getBookById(String bookId) {
+		Book bookById=null;
+		
+		for(int i=0; i<listOfBooks.size(); i++) {
+			Book book=listOfBooks.get(i);
+			
+			if(book != null && book.getBookId() != null && book.getBookId().equals(bookId)) {
+				bookById = book;
+				break;
+			}
+		}
+		
+		return bookById;
 	}
 
 }
