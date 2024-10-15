@@ -19,8 +19,12 @@ public class book_controller extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("/book 매핑");
 		
+		String id = req.getParameter("id");
+		
 		BookRepository bookDA0 = BookRepository.getRepository();
-		req.setAttribute("bookDAO", bookDA0);
+		Book book = bookDA0.getBookById(id);
+		
+		req.setAttribute("book", book);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("book.jsp");
 		rd.forward(req, resp);

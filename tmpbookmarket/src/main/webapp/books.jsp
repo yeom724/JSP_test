@@ -35,10 +35,15 @@
 			
 			<div class="col-md-4">
 				<div class="h-100 p-2">
+					<img src="resources/img/<%= book.getFilename() %>" style="width : 250px; height : 350px;">
 					<h5><b><%= book.getName() %></b></h5>
 					<p><%= book.getAuthor() %></p>
 					<p><%= book.getPublisher() %> | <%= book.getReleaseDate() %></p>
+					
 					<p><%= book.getDescription() %>...</p>
+					<!-- book.getDescription().substring(0,60) 이렇게 하면 60자를 잘라내어 보여주지만,
+					addbook을 사용할 때 길이제한을 걸지않아 60자 미만으로 작성하게 되면 에러가 발생한다. -->
+					
 					<p><%= book.getUnitPrice() %>원</p>
 					<p><a href="./book?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button">상세 정보 &raquo;</a></p>
 				</div>

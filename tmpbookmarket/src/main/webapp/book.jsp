@@ -21,14 +21,20 @@
 		</div>
 		
 		<%
-			String id = request.getParameter("id");
-			BookRepository br = (BookRepository)request.getAttribute("bookDAO");
-			Book book = br.getBookById(id);
+			//String id = request.getParameter("id");
+			//BookRepository br = (BookRepository)request.getAttribute("bookDAO");
+			//Book book = br.getBookById(id);
+			
+			Book book = (Book)request.getAttribute("book");
 		%>
 		
 		<div class="row align-items-md-stretch">
+		
+			<div class="col-md-5">
+				<img src="resources/img/<%= book.getFilename()%>" style="width:70%;">
+			</div>
 			
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<h3><b><%= book.getName() %></b></h3>
 				<p><%= book.getDescription() %></p>
 				<table>
