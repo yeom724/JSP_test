@@ -30,6 +30,7 @@ public class addBook_controller extends HttpServlet{
 		
 		System.out.println("addBook 도착");
 		
+		//Step1. 전처리
 		String save = req.getServletContext().getRealPath("resources/img");
 		System.out.println(save);
 		
@@ -65,8 +66,7 @@ public class addBook_controller extends HttpServlet{
 		} else {
 			stock = Long.valueOf(unitsInStock);
 		}
-		
-		BookRepository dao = BookRepository.getRepository();
+	
 		Book newBook = new Book();
 		
 		newBook.setBookId(bookId);
@@ -81,6 +81,8 @@ public class addBook_controller extends HttpServlet{
 		newBook.setCondition(condition);
 		newBook.setFilename(filename);
 		
+		
+		BookRepository dao = BookRepository.getRepository();
 		dao.addBook(newBook);
 		
 		resp.sendRedirect("products");

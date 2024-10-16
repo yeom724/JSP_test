@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -19,12 +20,12 @@
 		</div>
 	
 		<div class = "row align-items-md-stretch">
-			<form class="form-horizontal" name="newBook" method="post" action="AddBook" enctype="multipart/form-data">
+			<form id="newBook" class="form-horizontal" name="newBook" method="post" action="AddBook" enctype="multipart/form-data">
 				<!-- 도서코드 -->
 				<div class = "mb-3 row"> 
 					<label class="col-sm-2">도서코드</label>
 					<div class="col-sm-3">
-						<input type="text" name="bookId" class="form-control">
+						<input id="bookId" type="text" name="bookId" class="form-control">
 					</div>
 				</div>
 				
@@ -32,7 +33,7 @@
 				<div class = "mb-3 row"> 
 					<label class="col-sm-2">도서명</label>
 					<div class="col-sm-3">
-						<input type="text" name="name" class="form-control">
+						<input id="name" type="text" name="name" class="form-control">
 					</div>
 				</div>
 				
@@ -40,7 +41,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">가격</label>
 					<div class="col-sm-3">
-						<input type="text" name="unitPrice" class="form-control">
+						<input id="unitPrice" type="text" name="unitPrice" class="form-control">
 					</div>
 				</div>
 				
@@ -48,7 +49,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">저자</label>
 					<div class="col-sm-3">
-						<input type="text" name="author" class="form-control">
+						<input id="author" type="text" name="author" class="form-control">
 					</div>
 				</div>
 				
@@ -56,7 +57,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">출판사</label>
 					<div class="col-sm-3">
-						<input type="text" name="publisher" class="form-control">
+						<input id="publisher" type="text" name="publisher" class="form-control">
 					</div>
 				</div>
 				
@@ -64,7 +65,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">출판일</label>
 					<div class="col-sm-3">
-						<input type="text" name="releaseDate" class="form-control">
+						<input id="releaseDate" type="text" name="releaseDate" class="form-control">
 					</div>
 				</div>
 				
@@ -72,7 +73,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">상세정보</label>
 					<div class="col-sm-5">
-						<textarea rows="2" cols="50" name="description" class="form-control" placeholder="100자 이상 적어주세요"></textarea>
+						<textarea id="description" rows="2" cols="50" name="description" class="form-control" placeholder="100자 이상 적어주세요"></textarea>
 					</div>
 				</div>
 				
@@ -80,7 +81,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">카테고리</label>
 					<div class="col-sm-3">
-						<input type="text" name="category" class="form-control">
+						<input id="category" type="text" name="category" class="form-control">
 					</div>
 				</div>
 				
@@ -88,7 +89,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">재고</label>
 					<div class="col-sm-3">
-						<input type="text" name="unitsInStock" class="form-control">
+						<input id="unitsInStock" type="text" name="unitsInStock" class="form-control">
 					</div>
 				</div>
 				
@@ -106,14 +107,14 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2">이미지</label>
 					<div class="col-sm-5">
-						<input type="file" name="bookImage" class="form-control">
+						<input id="bookImage" type="file" name="bookImage" class="form-control">
 					</div>
 				</div>
 				
 				
 				<div class = "mb-3 row">
 					<div class="col-sm-offset-2 col-sm-10">
-						<input type="submit" class="btn btn-primary" value="등록">
+						<input type="button" class="btn btn-primary" value="등록" id="but">
 					</div>
 				</div>
 			</form>
@@ -121,4 +122,5 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 	</div>
 </body>
+<script type="text/javascript" src="resources/js/validation.js"></script>
 </html>
