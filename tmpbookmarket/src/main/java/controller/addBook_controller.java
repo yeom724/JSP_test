@@ -21,6 +21,7 @@ public class addBook_controller extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("로그인에 성공하여 addbook화면 진입");
 		RequestDispatcher rd = req.getRequestDispatcher("addbook.jsp");
 		rd.forward(req, resp);
 	}
