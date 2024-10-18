@@ -28,7 +28,7 @@
 	
 		<div class = "row align-items-md-stretch">
 			<div class="text-end">
-				<a href="?leng=ko"> 한국어 </a> | <a href="?leng=en">English</a>
+				<a href="?leng=ko">한국어</a> | <a href="?leng=en">English</a> | <a href="?leng=jp">日本語</a>
 				<a href="logout" class="btn btn-sm btn-success pull right">logout</a>
 			</div>
 			<form id="newBook" class="form-horizontal" name="newBook" method="post" action="AddBook" enctype="multipart/form-data">
@@ -84,7 +84,7 @@
 				<div class = "mb-3 row">
 					<label class="col-sm-2"> <fmt:message key="description"></fmt:message> </label>
 					<div class="col-sm-5">
-						<textarea id="description" rows="2" cols="50" name="description" class="form-control" placeholder="100자 이상 적어주세요"></textarea>
+						<textarea id="description" rows="2" cols="50" name="description" class="form-control" placeholder='<fmt:message key="msg"></fmt:message>'></textarea>
 					</div>
 				</div>
 				
