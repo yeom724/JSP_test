@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "dto.Book" %>
 <%@ page import = "java.util.ArrayList" %>
+<%@ page errorPage="exceptionNoBookId.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
