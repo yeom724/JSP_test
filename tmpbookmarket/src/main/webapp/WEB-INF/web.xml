@@ -46,6 +46,8 @@
   	<location>/exceptionNoPage.jsp</location>
   </error-page>
   
+  
+  <!-- 
   <filter>
   	<filter-name>LogFilter</filter-name>
   	<filter-class>filter.LogFilter</filter-class>
@@ -67,4 +69,5 @@
   	<filter-name>LogFileFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  -->
 </web-app>

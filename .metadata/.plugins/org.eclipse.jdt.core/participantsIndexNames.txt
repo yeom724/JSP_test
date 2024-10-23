@@ -39,3 +39,5 @@ D:\YJY\JSP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2349487025.inde
 \jspbook\src\main\java
 D:\YJY\JSP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2751357654.index
 \bookmarket\src\main\java
+D:\YJY\JSP\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2500944624.index
+\jspbook\src\main\java

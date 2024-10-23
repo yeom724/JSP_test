@@ -67,11 +67,14 @@ public class BookRepository {
 	
 	public Book getBookById(String bookId) {
 		Book bookById=null;
+		System.out.println(bookId);
 		
 		for(int i=0; i<listOfBooks.size(); i++) {
 			Book book=listOfBooks.get(i);
+			System.out.println("ID비교중 원본 : " + book.getBookId());
 			
 			if(book != null && book.getBookId() != null && book.getBookId().equals(bookId)) {
+				System.out.println("일치합니다.");
 				bookById = book;
 				break;
 			}

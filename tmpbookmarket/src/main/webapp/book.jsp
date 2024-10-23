@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "dto.Book" %>
 <%@ page import = "java.util.ArrayList" %>
-<%@ page errorPage="exceptionNoBookId.jsp" %>
+<%@ page errorPage="error01" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,12 +72,30 @@
 				</table>
 				<hr>
 				<h4><%= book.getUnitPrice() %>원</h4>
-				<p><a href="#" class="btn btn-info">도서 주문 &raquo;</a></p>
-				<p><a href="products" class="btn btn-secondary">도서 목록</a></p>
+				<form name="addForm" action="addCart?id=<%= book.getBookId()%>" method="post">
+					<a href="cart" class="btn btn-warning">장바구니 &raquo;</a>
+					<a href="#" class="btn btn-info" onclick="addToCart()">도서 주문 &raquo;</a>
+					<a href="products" class="btn btn-secondary">도서 목록 &raquo;</a>
+				</form>
+				
 
 			</div>
 		
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+
+	
+	function addToCart() {
+		//확인창이 뜸, yes는 true
+		if(confirm("도서를 장바구니에 추가하시겠습니까?")){
+			document.addForm.submit();
+		} else {
+			document.addForm.reset();
+		}
+	}
+
+</script>
 </html>
