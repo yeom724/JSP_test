@@ -17,6 +17,7 @@ public class deleteCart_controller extends HttpServlet{
 		
 		HttpSession session = req.getSession(false);
 		session.removeAttribute("cartlist");
+		//장바구니 세션만 종료
 		
 		resp.sendRedirect("cart");
 	}
