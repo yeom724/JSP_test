@@ -11,40 +11,42 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/join")
-public class member_controller extends HttpServlet{
-//목표 : CREAT 데이터를 데이터베이스에 입력(업로드)하는 것
-	
+@WebServlet("/update")
+public class update_controller extends HttpServlet{
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher rd = req.getRequestDispatcher("join.jsp");
+		//전처리
+		String id = req.getParameter("id");
+		
+		//모델이동
+		member_repository mr = member_repository.getInstance();
+		member_dto dto = mr.getOnemember(id);
+		
+		//뷰이동
+		req.setAttribute("dto", dto);
+		RequestDispatcher rd = req.getRequestDispatcher("updateForm.jsp");
 		rd.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("utf-8");
-		
-		//Step01 전처리
+		//전처리
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
 		int age = Integer.parseInt(req.getParameter("age"));
-		//문자열을 정수형으로 반환
 		
-		//데이터 묶음처리
 		member_dto dto = new member_dto();
 		dto.setId(id);
 		dto.setPw(pw);
 		dto.setAge(age);
 		
-		
-		//Step02 모델이동
+		//모델이동
 		member_repository mr = member_repository.getInstance();
-		mr.member_create(dto);
+		mr.update_member(dto);
 		
-		//Step03 뷰이동
-		
+		//뷰 이동
 		resp.sendRedirect("readAll");
 	}
-
+	
 }
