@@ -26,13 +26,12 @@ public class member_repository {
 		Class.forName("com.mysql.jdbc.Driver");
 		
 		//Step2 connection 객체 생성 (확인할 것, !데이터베이스 생성여부! !WEB-INF/lib 폴더에 jar파일 있는지 확인!)
-		Connection conn = null;
 		
 		String database = "jdbc:mysql://localhost:3306/login_crud";
 		String id = "root";
 		String password="1234";
 		
-		conn = DriverManager.getConnection(database,id,password);
+		Connection conn = DriverManager.getConnection(database,id,password);
 		System.out.println("데이터 베이스 연결 완료");
 		
 		return conn;
