@@ -20,7 +20,7 @@ public class product_controller extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//Verify Step 1 : 콘솔창으로 매핑 확인
 		System.out.println("/product 매핑");
-		
+		req.setAttribute("edit", req.getParameter("edit")) ; //업데이트 일 경우
 		//전처리
 		
 		//모델 가져오기

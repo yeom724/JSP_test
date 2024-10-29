@@ -3,6 +3,15 @@
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "dto.Book" %>
 <%
+	String edit = "main";
+	//Stirng edit = null; 값을 줬는데도 else구문이 실행이 되지 않았음 (Dead Code가 뜸)
+	//String edit = (String) request.getParameter("edit");
+	//이렇게 되면 참조변수에 null도 아니고 아무것도 담기지 않게됨!!! 그래서 equals함수를 아예 사용하지 못함! 에러발생
+	
+	if(request.getAttribute("edit")!=null){
+		edit = (String)request.getAttribute("edit");
+	}
+	
 	ArrayList<Book> listOfBooks = (ArrayList<Book>)request.getAttribute("array");
 	//get함수는 변수에 담아 사용할 것
 	//Type mismatch: cannot convert from Object to ArrayList<Book>
@@ -21,8 +30,18 @@
 		
 		<div class="p-5 mb-4 bg-body-tertiary rounded-3">
 			<div class="container-fluid py-5">
-				<h1 class="display-5 fw-bold">도서목록</h1>
-				<p class="col-md-8 fs-4">BookList</p>
+				<h1 class="display-5 fw-bold">
+				<% if(edit.equals("update")){ %> 도서 편집
+				
+				<% } else if(edit.equals("delete")){ %> 도서 삭제
+				
+				<% } else { %> 도서 목록 <% } %>
+				</h1>
+				<p class="col-md-8 fs-4">
+				<% if(edit.equals("update") || edit.equals("delete")){
+					out.print("BookEdit");
+				} else { out.print("BookList"); }%>	
+				</p>
 			</div>
 		</div>
 		
@@ -44,7 +63,13 @@
 					addbook을 사용할 때 길이제한을 걸지않아 60자 미만으로 작성하게 되면 에러가 발생한다. -->
 					
 					<p><%= book.getUnitPrice() %>원</p>
-					<p><a href="./book?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button">상세 정보 &raquo;</a></p>
+					<p>
+					<% if(edit.equals("update")){ %> <a href="./update?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button"> 수정하기 &raquo;
+				
+					<% } else if(edit.equals("delete")) { %><a href="#" onclick="deleteConfirm('<%= book.getBookId() %>')" class="btn btn-danger" role="button"> 도서삭제 &raquo;
+					
+					<% } else { %> <a href="./book?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button"> 상세 정보 &raquo; <% } %>					
+					</a></p>
 				</div>
 			</div>
 			
@@ -55,4 +80,12 @@
 		<%@ include file = "footer.jsp" %>
 	</div>
 </body>
+
+<script type="text/javascript">
+	function deleteConfirm(id) {
+		if(confirm("!!해당 도서를 삭제합니다!!")==true){
+			location.href = "deleteBook?id=" + id;
+		} else { return; }
+	}
+</script>
 </html>

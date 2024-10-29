@@ -23,7 +23,7 @@ public class book_controller extends HttpServlet{
 		
 		//저장소 생성 후, 아이디 조회하여 하나의 Book 객체를 빼오는 함수를 실행
 		BookRepository bookDA0 = BookRepository.getRepository();
-		Book book = bookDA0.getBookById(id);
+		Book book = bookDA0.getBookOne(id);
 		
 		//해당 객체만 페이지로 전송
 		req.setAttribute("book", book);

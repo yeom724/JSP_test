@@ -39,52 +39,36 @@ public class addBook_controller extends HttpServlet{
 		
 		req.setCharacterEncoding("UTF-8");
 		
-		String bookId = multi.getParameter("bookId");
-		String name = multi.getParameter("name");
-		String unitPrice = multi.getParameter("unitPrice");
-		String author = multi.getParameter("author");
-		String publisher = multi.getParameter("publisher");
-		String releaseDate = multi.getParameter("releaseDate");
-		String description = multi.getParameter("description");
-		String category = multi.getParameter("category");
-		String unitsInStock = multi.getParameter("unitsInStock");
-		String condition = multi.getParameter("condition");
-		String filename = multi.getFilesystemName("bookImage");
+		Book book = new Book();
 		
-		System.out.println(filename);
+		book.setBookId(multi.getParameter("bookId"));
+		book.setName(multi.getParameter("name"));
+		book.setAuthor(multi.getParameter("author"));
+		book.setPublisher(multi.getParameter("publisher"));
+		book.setReleaseDate(multi.getParameter("releaseDate"));
+		book.setDescription(multi.getParameter("description"));
+		book.setCategory(multi.getParameter("category"));
+		book.setCondition(multi.getParameter("condition"));
+		book.setFilename(multi.getFilesystemName("bookImage"));
 		
-		int price;
-		long stock;
-		
-		if(unitPrice.isEmpty()) {
-			price = 0;
+		if(multi.getParameter("unitPrice").isEmpty()) {
+			book.setUnitPrice(0);
 		} else {
-			price = Integer.valueOf(unitPrice);
+			book.setUnitPrice(Integer.valueOf(multi.getParameter("unitPrice")));
 		}
 		
-		if(unitsInStock.isEmpty()) {
-			stock = 0;
+		if(multi.getParameter("unitsInStock").isEmpty()) {
+			book.setUnitsInStock(0);
 		} else {
-			stock = Long.valueOf(unitsInStock);
+			book.setUnitsInStock(Long.parseLong(multi.getParameter("unitsInStock")));
 		}
-	
-		Book newBook = new Book();
-		
-		newBook.setBookId(bookId);
-		newBook.setName(name);
-		newBook.setUnitPrice(price);
-		newBook.setAuthor(author);
-		newBook.setPublisher(publisher);
-		newBook.setReleaseDate(releaseDate);
-		newBook.setDescription(description);
-		newBook.setCategory(category);
-		newBook.setUnitsInStock(stock);
-		newBook.setCondition(condition);
-		newBook.setFilename(filename);
+
 		
 		
 		BookRepository dao = BookRepository.getRepository();
-		dao.addBook(newBook);
+		//모델 불러오기
+		
+		dao.addBook(book);
 		
 		resp.sendRedirect("products");
 	}

@@ -6,13 +6,9 @@
   		프로젝트 우클릭 → [Java EE Tools] → [Generator Depolyment ...]
   	 -->
     <welcome-file>welcome.jsp</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <!-- 
   <security-role>
   		<description></description>
   		<role-name>admin</role-name>
@@ -45,7 +41,7 @@
   	<error-code>404</error-code>
   	<location>/exceptionNoPage.jsp</location>
   </error-page>
-  
+   -->
   
   <!-- 
   <filter>

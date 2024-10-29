@@ -43,7 +43,7 @@ public class addCart_controller extends HttpServlet{
 		//모델 객체 생성
 		System.out.println(dao);
 		
-		Book book = dao.getBookById(id);
+		Book book = dao.getBookOne(id);
 		//모델에서 해당 아이디를 가지고 있는 책을 가져와 담음
 		System.out.println(id);
 		System.out.println(book);
@@ -146,7 +146,7 @@ public class addCart_controller extends HttpServlet{
 		//모델 객체 생성
 		System.out.println(dao);
 		
-		Book book = dao.getBookById(id);
+		Book book = dao.getBookOne(id);
 		//모델에서 해당 아이디를 가지고 있는 책을 가져와 담음
 		System.out.println(id);
 		System.out.println(book);
