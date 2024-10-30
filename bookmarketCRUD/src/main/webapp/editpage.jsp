@@ -35,21 +35,15 @@
 				<h1 class="display-5 fw-bold">
 				<% if(edit.equals("update")){ %> 도서 편집
 				
-				<% } else if(edit.equals("delete")){ %> 도서 삭제
-				
-				<% } else  if(edit.equals("main")) { %> 도서 목록 <% } %>					
+				<% } else if(edit.equals("delete")){ %> 도서 삭제 <% } %>
 				</h1>
-				<p class="col-md-8 fs-4">
-				<% if(edit.equals("update") || edit.equals("delete")){
-					out.print("BookEdit");
-				} else if(edit.equals("main")) { out.print("BookList"); }%>	
-				</p>
+				<p class="col-md-8 fs-4">BookEdit</p>
 			</div>
 		</div>
 		
 		<div class="row align-items-md-stretch text-center">
 			<%
-				for(int i=0; i<listOfBooks.size(); i++){
+				for(int i=0; i<listOfBooks.size(); i++){ 
 					Book book = listOfBooks.get(i);
 					//아직 for문 닫지 않음	
 			%>
@@ -66,11 +60,12 @@
 					
 					<p><%= book.getUnitPrice() %>원</p>
 					<p>
-					<% if(edit.equals("update")){ %> <a href="./update?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button"> 수정하기 &raquo;
+					<% if(edit.equals("update")){ %>
+					<a href="update?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button"> 수정하기 &raquo;
 				
 					<% } else if(edit.equals("delete")) { %><a href="#" onclick="deleteConfirm('<%= book.getBookId() %>')" class="btn btn-danger" role="button"> 도서삭제 &raquo;
 					
-					<% } else { %> <a href="./book?id=<%=book.getBookId()%>" class="btn btn-secondary" role="button"> 상세 정보 &raquo; <% } %>					
+					<% } %>					
 					</a></p>
 				</div>
 			</div>

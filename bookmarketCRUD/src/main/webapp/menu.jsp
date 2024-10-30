@@ -17,9 +17,9 @@
 	  		<!-- C : 상품입력 -->
 	      	<li class="nav-item"><a class="nav-link" href="AddBook">Add Book</a></li>
 	      	<!-- U : 상품수정 -->
-	      	<li class="nav-item"><a class="nav-link" href="products?edit=update">Book update</a></li>
+	      	<li class="nav-item"><a class="nav-link" href="editpage?edit=update">Book update</a></li>
 	      	<!-- D : 상품삭제 -->
-	      	<li class="nav-item"><a class="nav-link" href="products?edit=delete">Book delete</a></li>
+	      	<li class="nav-item"><a class="nav-link" href="editpage?edit=delete">Book delete</a></li>
 		</ul>
 	</div>
 </div>

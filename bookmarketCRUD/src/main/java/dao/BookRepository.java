@@ -21,12 +21,13 @@ public class BookRepository {
 	//private - 외부에서 접근을 막기 때문에, 함수도 같이 생성되나 접근할 수 없음
 	
 	public static BookRepository getRepository() {
+		System.out.println("BookRepository 객체 생성 완료");
 		return repository;
 		//생성된 객체를 반환
 	}
 	
 	//데이터 베이스 연결
-	private static Connection DBconn() {
+	private Connection DBconn() {
 		Connection conn = null;
 		
 		try {
@@ -52,9 +53,9 @@ public class BookRepository {
 		
 		System.out.println("addbook 함수 실행중...");
 		PreparedStatement ps = null;
+		Connection conn = DBconn();
 		
 		try {
-			Connection conn = DBconn();
 			
 			String sql = "insert into book values(?,?,?,?,?,?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql); //명령어 미리 전달
@@ -73,11 +74,24 @@ public class BookRepository {
 			ps.executeUpdate(); //업로드
 			System.out.println("파일 업로드 완료");
 			
-			ps.close();
-			conn.close();
-			System.out.println("addbook 함수 종료중...");
-			
-		} catch(Exception e) {System.out.println("도서 추가 실패");}
+		} catch(Exception e) {
+			System.out.println("도서 추가 실패");
+			e.printStackTrace();
+		}
+		
+		finally {
+			try 
+			{
+				if(ps != null) { ps.close(); }
+				if(conn != null) { conn.close(); }
+				System.out.println("addbook 함수 종료중...");
+			}
+			catch(Exception e)
+			{ 
+				System.out.println("SQL 리소스 닫기 실패");
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//UPDATE
@@ -85,12 +99,11 @@ public class BookRepository {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection conn = DBconn();
 		
 		try {
 			
-			Connection conn = DBconn();
-			
-			String sql = "select * from book where b_id=?"; //기존 데이터를 바꾸기 위해 불러와야함
+			String sql = "select * from book where b_id=?"; //기존 데이터를 바꾸기 위해 불러와야함?
 			ps = conn.prepareStatement(sql); //해당 명령어 전달
 			ps.setString(1, book.getBookId());
 			rs = ps.executeQuery();
@@ -98,46 +111,50 @@ public class BookRepository {
 			if(rs.next()) {
 				System.out.println("데이터 발견!");
 				
-				//데이터를 수정할 때, 파일명을 삽입하지 않으면 기존 데이터가 날아가기 때문
-				//input file태그는 value값을 지정할 수 없기때문에 수정하지 않으면 null값으로 오게 된다.
+				sql = "update book set b_name=?, b_unitPrice=?, b_author=?, b_description=?, b_publisher=?, b_category=?, b_unitsInStock=?, b_releaseDate=?, b_condition=? where b_id=?";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, book.getName());
+				ps.setInt(2, book.getUnitPrice());
+				ps.setString(3, book.getAuthor());
+				ps.setString(4, book.getDescription());
+				ps.setString(5, book.getPublisher());
+				ps.setString(6, book.getCategory());
+				ps.setLong(7, book.getUnitsInStock());
+				ps.setString(8, book.getReleaseDate());
+				ps.setString(9, book.getCondition());
+				ps.setString(10, book.getBookId());
+				ps.executeUpdate();
+				
 				if(book.getFilename()!=null) {
-					sql = "update book set b_name=?, b_unitPrice=?, b_author=?, b_description=?, b_publisher=?, b_category=?, b_unitsInStock=?, b_releaseDate=?, b_condition=?, b_filename=? where b_id=?";
+					sql = "update book set b_filename=? where b_id=?";
 					ps = conn.prepareStatement(sql); //재사용?
-					ps.setString(1, book.getName());
-					ps.setInt(2, book.getUnitPrice());
-					ps.setString(3, book.getAuthor());
-					ps.setString(4, book.getDescription());
-					ps.setString(5, book.getPublisher());
-					ps.setString(6, book.getCategory());
-					ps.setLong(7, book.getUnitsInStock());
-					ps.setString(8, book.getReleaseDate());
-					ps.setString(9, book.getCondition());
-					ps.setString(10, book.getFilename());
-					ps.setString(11, book.getBookId());
+					ps.setString(1, book.getFilename());
+					ps.setString(2, book.getBookId());
 					ps.executeUpdate();
-					System.out.println("이미지가 수정됩니다, 업로드 완료.");
+					System.out.println("이미지가 수정됩니다");
 					
-				} else {
-					
-					sql = "update book set b_name=?, b_unitPrice=?, b_author=?, b_description=?, b_publisher=?, b_category=?, b_unitsInStock=?, b_releaseDate=?, b_condition=? where b_id=?";
-					ps = conn.prepareStatement(sql);
-					ps.setString(1, book.getName());
-					ps.setInt(2, book.getUnitPrice());
-					ps.setString(3, book.getAuthor());
-					ps.setString(4, book.getDescription());
-					ps.setString(5, book.getPublisher());
-					ps.setString(6, book.getCategory());
-					ps.setLong(7, book.getUnitsInStock());
-					ps.setString(8, book.getReleaseDate());
-					ps.setString(9, book.getCondition());
-					ps.setString(10, book.getBookId());
-					ps.executeUpdate();
-					System.out.println("이미지가 유지됩니다, 업로드 완료.");
 				}
+				
+				System.out.println("업로드 완료.");
 			}
 			
 			
 		} catch(Exception e) {System.out.println("도서 업데이트 실패");}
+		
+		finally
+		{
+			try
+			{
+				if(rs != null) { rs.close(); }
+				if(ps != null) { ps.close(); }
+				if(conn != null) { conn.close(); }
+				System.out.println("bookUpdate 함수 종료중...");
+			}
+			catch(Exception e) {
+				System.out.println("SQL 리소스 닫기 실패");
+				e.printStackTrace();
+			}
+		}
 		
 	}
 
@@ -148,11 +165,11 @@ public class BookRepository {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection conn = DBconn();
 		ArrayList<Book> list = new ArrayList<Book>();
 		
 		try {
-			Connection conn = DBconn();
-			
+
 			String sql = "select * from book";
 			ps = conn.prepareStatement(sql); //명령어 전달
 			rs = ps.executeQuery();			//파일 받아오기
@@ -180,27 +197,38 @@ public class BookRepository {
 				list.add(book);
 			}
 			
-			rs.close();
-			ps.close();
-			conn.close();
-			
 		}
 		catch(Exception e) { System.out.println("전체 도서 불러오기 실패"); }
+		
+		finally
+		{
+			try
+			{
+				if(rs != null) { rs.close(); }
+				if(ps != null) { ps.close(); }
+				if(conn != null) { conn.close(); }
+				System.out.println("getAllBooks 함수 종료중...");
+			}
+			catch(Exception e) {
+				System.out.println("SQL 리소스 닫기 실패");
+				e.printStackTrace();
+			}
+		}
+		
 		
 		System.out.println("반환 완료");
 		return list;
 	}
 
  	//READ One
-	public static Book getBookOne(String id) {
+	public Book getBookOne(String id) {
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection conn = DBconn();
 		Book book = new Book(); //전달할 dto객체 생성
 		
 		try {
-			
-			Connection conn = DBconn();
 			
 			String sql = "select * from book where b_id=?";
 			ps = conn.prepareStatement(sql); //명령어 전달
@@ -225,25 +253,35 @@ public class BookRepository {
 			
 			System.out.println("업데이트 될 도서 정보를 가져옵니다.");
 			
-			rs.close();
-			ps.close();
-			conn.close();
-			
 		}catch(Exception e) {System.out.println("도서 정보 가져오기 실패");}
+		
+		finally
+		{
+			try
+			{
+				if(rs != null) { rs.close(); }
+				if(ps != null) { ps.close(); }
+				if(conn != null) { conn.close(); }
+				System.out.println("getBookOne 함수 종료중...");
+			}
+			catch(Exception e) {
+				System.out.println("SQL 리소스 닫기 실패");
+				e.printStackTrace();
+			}
+		}
 		
 		return book;
 		
 	}
 	
-	
+	//DELETE
 	public void bookDel(String id) {
 		
 		PreparedStatement ps = null;
+		Connection conn = DBconn();
 		
 		try {
-			
-			Connection conn = DBconn();
-			
+
 			String sql = "delete from book where b_id=?";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
@@ -251,14 +289,26 @@ public class BookRepository {
 			
 			System.out.println("도서삭제 완료");
 			
-			ps.close();
-			conn.close();
-			
-			
 		} catch(Exception e) {System.out.println("도서삭제 실패");}
+		
+		finally
+		{
+			try
+			{
+				if(ps != null) { ps.close(); }
+				if(conn != null) { conn.close(); }
+				System.out.println("bookDel 함수 종료중...");
+			}
+			catch(Exception e) {
+				System.out.println("SQL 리소스 닫기 실패");
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
+	
+/*
 	public Book getBookById(String bookId) {
 		Book bookById=null;
 		System.out.println(bookId);
@@ -276,5 +326,6 @@ public class BookRepository {
 		
 		return bookById;
 	}
+*/ //이제 사용 안함
 
 }
