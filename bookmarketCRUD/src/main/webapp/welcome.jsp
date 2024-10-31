@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">  -->
-<link rel="stylesheet" href="/tmpbookmarket/resources/css/bootstrap.min.css" >
+<link rel="stylesheet" href="/bookmarketCRUD/resources/css/bootstrap.min.css" >
 <meta charset="UTF-8">
 <title>Welcome</title>
 </head>
@@ -16,7 +17,7 @@
 		<%@ include file = "menu.jsp" %>
 		
 		<%!
-			String greeting = "Welcome to Book Shopping Mail";
+			String greeting = "Welcome to Book Shopping Mall";
 			String tagline = "Welcome to Web Market!";
 		%>
 		

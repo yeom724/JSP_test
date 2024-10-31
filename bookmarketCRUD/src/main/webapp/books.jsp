@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "dto.Book" %>
+<%@ page session="false" %>
 <%
 
 	String edit = "main";
@@ -22,7 +23,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+<link rel="stylesheet" href="/bookmarketCRUD/resources/css/bootstrap.min.css" >
 <meta charset="UTF-8">
 <title>BookList</title>
 </head>
@@ -56,7 +57,7 @@
 			
 			<div class="col-md-4">
 				<div class="h-100 p-2">
-					<img src="resources/img/<%= book.getFilename() %>" style="width : 250px; height : 350px;">
+					<img src="/bookmarketCRUD/resources/img/<%= book.getFilename() %>" style="width : 250px; height : 350px;">
 					<h5><b><%= book.getName() %></b></h5>
 					<p><%= book.getAuthor() %></p>
 					<p><%= book.getPublisher() %> | <%= book.getReleaseDate() %></p>

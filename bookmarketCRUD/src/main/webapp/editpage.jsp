@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "dto.Book" %>
+<%@ page session="false" %>
 <%
 
 	String edit = "main";

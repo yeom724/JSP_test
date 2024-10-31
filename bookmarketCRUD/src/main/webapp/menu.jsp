@@ -1,5 +1,25 @@
+<%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page session="false" %>
+
+<% 
+	String sessionId = null;
+	
+	HttpSession session = request.getSession(false);
+	if(session != null){
+		if(session.getAttribute("member")!=null){
+			Member mb = (Member) session.getAttribute("member");
+			sessionId = mb.getId();
+		}
+	}
+	
+	//해당 페이지는 모든 페이지에 삽입되므로, 다른 곳에서 중복 선언하지 않도록 유의한다.
+	
+	
+
+%> <!-- 로그인 유지용 -->
+
 <!DOCTYPE html> 
  <header class="pb-3 mb-4 border-bottom">
  <div class="container">
@@ -12,6 +32,16 @@
 			<span class="fs-4">Home</span>
 		</a>
 		<ul class="nav nav-pills">
+
+		      	<% if(sessionId == null) { %>
+						<li class="nav-item"><a class="nav-link" href="member_login">로그인 </a></li>
+						<li class="nav-item"><a class="nav-link" href="member_add">회원 가입</a></li>
+				<% } else { %>
+						<li style="padding-top: 7px;">[<%=sessionId%>님]</li>
+						<li class="nav-item"><a class="nav-link" href="member_logout">로그아웃 </a></li>
+						<li class="nav-item"><a class="nav-link" href="member_update">회원 수정</a></li>
+				<% } %>
+			
       		<!-- R : 전체상품 불러오기 -->
 	  		<li class="nav-item"><a class="nav-link"  href="products">All Book</a></li>
 	  		<!-- C : 상품입력 -->
@@ -20,6 +50,7 @@
 	      	<li class="nav-item"><a class="nav-link" href="editpage?edit=update">Book update</a></li>
 	      	<!-- D : 상품삭제 -->
 	      	<li class="nav-item"><a class="nav-link" href="editpage?edit=delete">Book delete</a></li>
+	      	<li class="nav-item"><a href = "BoardListAction?pageNum=1" class = "nav-link"  >게시판</a></li>
 		</ul>
 	</div>
 </div>

@@ -4,10 +4,11 @@
 <%@ page import = "dto.Book" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page errorPage="error01" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="resources/css/bootstrap.min.css" >
+<link rel="stylesheet" href="/bookmarketCRUD/resources/css/bootstrap.min.css" >
 <meta charset="UTF-8">
 <title>도서 정보</title>
 </head>
@@ -26,7 +27,7 @@
 		<div class="row align-items-md-stretch">
 		
 			<div class="col-md-5">
-				<img src="resources/img/<%= book.getFilename()%>" style="width:70%;">
+				<img src="/bookmarketCRUD/resources/img/<%= book.getFilename()%>" style="width:70%;">
 			</div>
 			
 			<div class="col-md-6">
