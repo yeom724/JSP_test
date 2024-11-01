@@ -23,9 +23,15 @@ public class Read_All_con extends HttpServlet{
 		
 		//한페이지가 출력할 수 있는 최대 글의 갯수
 		int Limit = 5;
-		
+		int pageNum = 0;
 		System.out.println("board 전처리 진행중...");
-		int pageNum = Integer.parseInt(req.getParameter("pageNum"));
+		
+		String page = req.getParameter("pageNum");
+		System.out.println(page);
+		
+		if(page != null) {
+			pageNum = Integer.parseInt(page);
+		} else { pageNum = 1; }
 		
 		//모델이동
 		BoardRepository dao = BoardRepository.getRepository();

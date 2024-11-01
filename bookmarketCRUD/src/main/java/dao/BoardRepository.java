@@ -41,15 +41,18 @@ public class BoardRepository {
 		
 	}
 	
-	Connection conn = DBconn();
+	//Connection conn = DBconn();
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	//귀찮아서 모두 전역변수 해버림 ㅎ
 	
 	
+	
+	
 	//행의 갯수를 리턴함
 	public int getTotalCount() {
 		int count = 0;
+		Connection conn = DBconn();
 
 		try {
 			
@@ -64,12 +67,42 @@ public class BoardRepository {
 			
 		}catch(Exception e) { }
 		
+		
+		
 		return count;
 	}
 
 	
 	//C
-	public void boardCreate() {
+	public void boardCreate(Board bo) {
+		System.out.println("게시물 함수에 도착");
+		//데이터 베이스 연결
+		Connection conn = DBconn();
+		
+		try {
+			
+			String sql = "insert into board(id,name,subject,content,regist_day,hit,ip) value(?,?,?,?,?,?,?)";
+			ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, bo.getId());
+			ps.setString(2, bo.getName());
+			ps.setString(3, bo.getSubject());
+			ps.setString(4, bo.getContent());
+			ps.setTimestamp(5, bo.getRegist_day());
+			ps.setInt(6, bo.getHit());
+			ps.setString(7, bo.getIp());
+			
+			System.out.println("명령어 전송중...");
+			ps.executeUpdate();
+			
+			
+		} catch(Exception e) { System.out.println("게시물 업로드 실패"); }
+		
+		
+		//쿼리전송
+		
+		//ResultSet 필요없음
+		
 		
 	}
 	
@@ -117,8 +150,41 @@ public class BoardRepository {
 	}
 	
 	//Read One
-	public Board getOneBoard() {
+	public Board getOneBoard(int num) {
 		Board bo = null;
+		
+		Connection conn = DBconn();
+		
+		try {
+			
+			String sql = "select * from board where num=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, num);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				
+				sql = "update board set hit=hit+1 where num=?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, num);
+				ps.executeUpdate();
+				
+				bo = new Board();
+				
+				bo.setNum(rs.getInt(1));
+				bo.setId(rs.getString(2));
+				bo.setName(rs.getString(3));
+				bo.setSubject(rs.getString(4));
+				bo.setContent(rs.getString(5));
+				bo.setRegist_day(rs.getTimestamp(6));
+				bo.setHit(rs.getInt(7));
+				bo.setIp(rs.getString(8));
+				System.out.println("게시물 로드 완료");
+			}
+			
+			
+		} catch(Exception e) { System.out.println("한 게시물 가져오기 실패"); }
+		
 		
 		return bo;
 	}

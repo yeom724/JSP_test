@@ -92,15 +92,15 @@
 					for(int i=1; i<total_page; i++){
 				%>
 					<!-- 페이지넘버 할당 -->
-					<a href="BoardListAction?pageNum=${i}"> ">
+					<a href="BoardListAction?pageNum=<%=i%>">
 						<%
 							if(pageNum==i){
 						%>
-						<font color='4C5317'><b> [${i}]</b></font>
+						<font color='4C5317;'><b> [ <%= i %> ]</b></font>
 						<%
 							} else {						
 						%>
-						<font color='4C5317'> [${i}]</font>
+						<font color='4C5317;'> [ <%= i %> ]</font>
 						<%
 							}
 						%>

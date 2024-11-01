@@ -1,9 +1,16 @@
+<%@ page import="dto.Member"%>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page session="false" %>
 <%
-	String name = (String) request.getAttribute("name");
+	HttpSession session = request.getSession(false);
 	
+	if(session == null){
+		System.out.println("세션 없음");
+	}
+	
+	Member user = (Member) session.getAttribute("member");
 %>
 <html>
 <head>
@@ -39,13 +46,13 @@
 
 	<div class="row align-items-md-stretch   text-center">	 	
 
-		<form name="newWrite" action="./BoardWriteAction.do"  method="post" onsubmit="return checkForm()">
+		<form name="newWrite" action="BoardWriteForm"  method="post" onsubmit="return checkForm()">
 			<input name="id" type="hidden" class="form-control"
-				value="${sessionId}">
+				value="<%= user.getId() %>">
 			<div class="mb-3 row">
 				<label class="col-sm-2 control-label" >성명</label>
 				<div class="col-sm-3">
-					<input name="name" type="text" class="form-control" value="<%=name %>"		placeholder="name">
+					<input readonly="readonly" name="name" type="text" class="form-control" value="<%= user.getName() %>">
 				</div>
 			</div>
 			<div class="mb-3 row">

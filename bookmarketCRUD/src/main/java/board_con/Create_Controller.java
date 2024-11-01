@@ -1,12 +1,17 @@
 package board_con;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import dao.BoardRepository;
 import dao.BookRepository;
+import dto.Board;
 import dto.Book;
+import dto.Member;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -29,7 +34,7 @@ public class Create_Controller extends HttpServlet{
 			System.out.println("세션이 존재하지 않습니다.");
 			resp.sendRedirect("member_login");
 		} else {
-			RequestDispatcher rd = req.getRequestDispatcher("/");
+			RequestDispatcher rd = req.getRequestDispatcher("writeForm.jsp");
 			rd.forward(req, resp);
 		}
 		
@@ -38,51 +43,41 @@ public class Create_Controller extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		System.out.println("addBook 새로운 도서 정보 도착");
+		System.out.println("post 게시물 새로운 내용 도착");
 		
-		//Step1. 전처리
-		String save = req.getServletContext().getRealPath("resources/img");
-		//getServletContext() > webapp의 주소
-		System.out.println(save);
+		//전처리
+		Board dto = new Board();
 		
-		//일반 텍스트와 이미지 데이터가 섞여있으므로 분리 가능한 객체가 필요!
-		MultipartRequest multi = new MultipartRequest(req, save, 5*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+		HttpSession session = req.getSession(false);
+		Member mb = (Member) session.getAttribute("member");
 		
-		req.setCharacterEncoding("UTF-8"); //한글아 깨지지마!
+		String id = mb.getId();
+		String name = mb.getName();
+		String subject = req.getParameter("subject");
+		String content = req.getParameter("content");
 		
-		Book book = new Book();
+		Date currentDatetime = new Date(System.currentTimeMillis());						//현재시간
+		java.sql.Date sqlDate = new java.sql.Date(currentDatetime.getTime());				//현재시간
+		java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());	//현재시간 이어져잇오...
 		
-		book.setBookId(multi.getParameter("bookId"));
-		book.setName(multi.getParameter("name"));
-		book.setAuthor(multi.getParameter("author"));
-		book.setPublisher(multi.getParameter("publisher"));
-		book.setReleaseDate(multi.getParameter("releaseDate"));
-		book.setDescription(multi.getParameter("description"));
-		book.setCategory(multi.getParameter("category"));
-		book.setCondition(multi.getParameter("condition"));
+		int hit = 0;
+		String ip = req.getRemoteAddr();
 		
-		book.setFilename(multi.getFilesystemName("bookImage"));
+		dto.setId(id);
+		dto.setName(name);
+		dto.setSubject(subject);
+		dto.setContent(content);
+		dto.setRegist_day(timestamp);
+		dto.setHit(hit);
+		dto.setIp(ip);
 		
-		if(multi.getParameter("unitPrice").isEmpty()) {
-			book.setUnitPrice(0);
-		} else {
-			book.setUnitPrice(Integer.valueOf(multi.getParameter("unitPrice")));
-		}
+		System.out.println("게시물 업로드 함수로 이동합니다.");
+		//모델이동
+		BoardRepository br = BoardRepository.getRepository();
+		br.boardCreate(dto);
 		
-		if(multi.getParameter("unitsInStock").isEmpty()) {
-			book.setUnitsInStock(0);
-		} else {
-			book.setUnitsInStock(Long.parseLong(multi.getParameter("unitsInStock")));
-		}
-
-		
-		
-		BookRepository dao = BookRepository.getRepository();
-		//모델 불러오기
-		
-		dao.addBook(book);
-		
-		resp.sendRedirect("products");
+		//뷰이동
+		resp.sendRedirect("BoardListAction");
 		
 	}
 
